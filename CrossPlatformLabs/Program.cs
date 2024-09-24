@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace CrossPlatformLabs
 {
@@ -8,6 +9,14 @@ namespace CrossPlatformLabs
         string[] getNames(string path)
         {
             return File.ReadAllLines(path);
+        }
+
+        string cutName(string name, int untilIndex)
+        {
+            string res = "";
+            for (int i = 0; i < untilIndex; i++)
+                res += name.ElementAt(i);
+            return res;
         }
 
         string combineNames(string name1, string name2)
@@ -23,7 +32,7 @@ namespace CrossPlatformLabs
                     currentIndex++;
                 else
                 {
-                    startIndex = i;
+                    startIndex = i + 1;
                     currentIndex = 0;
                 }
 
@@ -32,11 +41,7 @@ namespace CrossPlatformLabs
             if (currentIndex == 0)
                 return name1 + name2;
             else
-            {
-                string res = "";
-
-                return res;
-            }
+                return cutName(name1, startIndex) + name2;
         }
 
         bool checkArr(string[] arr)
@@ -56,9 +61,10 @@ namespace CrossPlatformLabs
         public void Start()
         {
             string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\"));
-            string path = Path.Combine(rootDirectory, "Lab1\\input.txt");
+            string inputPath = Path.Combine(rootDirectory, "Lab1\\input.txt");
+            string outputPath = Path.Combine(rootDirectory, "Lab1\\output.txt");
 
-            string[] names = getNames(path);
+            string[] names = getNames(inputPath);
 
             if (checkArr(names))
                 return;
@@ -70,6 +76,10 @@ namespace CrossPlatformLabs
 
             string res = res1.Length < res2.Length ? res1 : res2;
 
+            File.WriteAllText(outputPath, res);
+
+            Console.WriteLine("Program succesfully finished");
+            Console.ReadKey();
         }
     }
 
@@ -78,8 +88,6 @@ namespace CrossPlatformLabs
         static void Main(string[] args)
         {
             new Lab1().Start();
-
-            Console.ReadKey();
         }
     }
 }
