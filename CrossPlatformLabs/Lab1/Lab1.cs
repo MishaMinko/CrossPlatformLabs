@@ -19,6 +19,16 @@ namespace CrossPlatformLabs.LabOne
             return res;
         }
 
+        bool checkArr(string[] arr)
+        {
+            return arr == null || arr.Length != 2;
+        }
+
+        bool checkName(string name)
+        {
+            return name.Length < 2 || name.Length > 999;
+        }
+
         string combineNames(string name1, string name2)
         {
             char[] charName1 = name1.ToLower().ToCharArray();
@@ -44,18 +54,9 @@ namespace CrossPlatformLabs.LabOne
                 return cutName(name1, startIndex) + name2;
         }
 
-        bool checkArr(string[] arr)
+        string chooseAppropriateResult(string res1, string res2)
         {
-            if (arr == null || arr.Length != 2)
-                return true;
-            return false;
-        }
-
-        bool checkName(string name)
-        {
-            if (name.Length < 2 || name.Length > 999)
-                return true;
-            return false;
+            return res1.Length < res2.Length ? res1 : res2;
         }
 
         public void Start()
@@ -74,7 +75,7 @@ namespace CrossPlatformLabs.LabOne
             string res1 = combineNames(names[0], names[1]);
             string res2 = combineNames(names[1], names[0]);
 
-            string res = res1.Length < res2.Length ? res1 : res2;
+            string res = chooseAppropriateResult(res1, res2);
 
             File.WriteAllText(outputPath, res);
 
