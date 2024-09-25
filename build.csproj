@@ -1,7 +1,7 @@
 <Project>
 	<PropertyGroup>
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-		<MainProjectPath>$(SolutionDir)CrossPlatformLabs\CrossPlatformLabs.csproj</MainProjectPath>
+		<MainProjectPath>$(SolutionDir)Labs\Labs.csproj</MainProjectPath>
 		<TestProjectPath>$(SolutionDir)Tests\Tests.csproj</TestProjectPath>
 	</PropertyGroup>
 

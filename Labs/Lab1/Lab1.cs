@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-
-namespace CrossPlatformLabs.Labs
+﻿namespace Labs.Lab1
 {
     public class Lab1
     {
@@ -61,9 +57,9 @@ namespace CrossPlatformLabs.Labs
 
         public void Start()
         {
-            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\"));
-            string inputPath = Path.Combine(rootDirectory, "Labs\\Lab1\\input.txt");
-            string outputPath = Path.Combine(rootDirectory, "Labs\\Lab1\\output.txt");
+            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
+            string inputPath = Path.Combine(rootDirectory, "Lab1\\input.txt");
+            string outputPath = Path.Combine(rootDirectory, "Lab1\\output.txt");
 
             string[] names = getNames(inputPath);
 

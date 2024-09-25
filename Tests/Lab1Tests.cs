@@ -1,4 +1,4 @@
-using CrossPlatformLabs.Labs;
+using Labs.Lab1;
 
 namespace Tests
 {
