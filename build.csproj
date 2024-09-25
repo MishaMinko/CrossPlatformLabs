@@ -1,22 +1,22 @@
 <Project>
 	<PropertyGroup>
 		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
-		<MainProjectPath>$(SolutionDir)Labs\Labs.csproj</MainProjectPath>
-		<TestProjectPath>$(SolutionDir)Tests\Tests.csproj</TestProjectPath>
+		<LabOne>$(SolutionDir)Lab1\Lab1.csproj</LabOne>
+		<LabOneTest>$(SolutionDir)Lab1.Tests\Lab1.Tests.csproj</LabOneTest>
 	</PropertyGroup>
 
-	<Target Name="Build">
-		<Message Text="Building main project: $(MainProjectPath)" />
-		<MSBuild Projects="$(MainProjectPath)" Targets="Build" />
+	<Target Name="Build1">
+		<Message Text="Building main project: $(LabOne)" />
+		<MSBuild Projects="$(LabOne)" Targets="Build" />
 	</Target>
 
-	<Target Name="Run">
-		<Message Text="Running main project: $(MainProjectPath)" />
-		<Exec Command="dotnet run --project &quot;$(MainProjectPath)&quot;" />
+	<Target Name="Run1">
+		<Message Text="Running main project: $(LabOne)" />
+		<Exec Command="dotnet run --project &quot;$(LabOne)&quot;" />
 	</Target>
 
-	<Target Name="Test">
-		<Message Text="Running tests for project: $(TestProjectPath)" />
-		<Exec Command="dotnet test &quot;$(TestProjectPath)&quot;" />
+	<Target Name="Test1">
+		<Message Text="Running tests for project: $(LabOneTest)" />
+		<Exec Command="dotnet test &quot;$(LabOneTest)&quot;" />
 	</Target>
 </Project>

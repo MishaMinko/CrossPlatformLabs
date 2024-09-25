@@ -1,6 +1,6 @@
-﻿namespace Labs.Lab1
+﻿namespace Lab1
 {
-    public class Lab1
+    public class Main
     {
         public string[] getNames(string path)
         {
@@ -58,8 +58,8 @@
         public void Start()
         {
             string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
-            string inputPath = Path.Combine(rootDirectory, "Lab1\\input.txt");
-            string outputPath = Path.Combine(rootDirectory, "Lab1\\output.txt");
+            string inputPath = Path.Combine(rootDirectory, "input.txt");
+            string outputPath = Path.Combine(rootDirectory, "output.txt");
 
             string[] names = getNames(inputPath);
 

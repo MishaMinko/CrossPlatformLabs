@@ -1,22 +1,22 @@
-using Labs.Lab1;
+using Lab1;
 
-namespace Tests
+namespace Lab1.Tests
 {
-    public class Lab1Tests
+    public class Tests
     {
-        private Lab1 lab = null!;
+        private Main lab = null!;
 
         [SetUp]
         public void Setup()
         {
-            lab = new Lab1();
+            lab = new Main();
         }
 
         //checkArr method
         [Test]
         public void checkArrCorrect()
         {
-            string[] arr = new string[] { "ABC", "abc" };
+            string[] arr = { "ABC", "abc" };
             Assert.IsFalse(lab.checkArr(arr));
         }
 
@@ -30,7 +30,7 @@ namespace Tests
         [Test]
         public void checkArrNotTwoLength()
         {
-            string[] arr = new string[] { "Hello" };
+            string[] arr = { "Hello" };
             Assert.IsTrue(lab.checkArr(arr));
         }
 
