@@ -2,16 +2,16 @@
 using System.IO;
 using System.Linq;
 
-namespace CrossPlatformLabs.LabOne
+namespace CrossPlatformLabs.Labs
 {
     public class Lab1
     {
-        string[] getNames(string path)
+        public string[] getNames(string path)
         {
             return File.ReadAllLines(path);
         }
 
-        string cutName(string name, int untilIndex)
+        public string cutName(string name, int untilIndex)
         {
             string res = "";
             for (int i = 0; i < untilIndex; i++)
@@ -19,17 +19,17 @@ namespace CrossPlatformLabs.LabOne
             return res;
         }
 
-        bool checkArr(string[] arr)
+        public bool checkArr(string[] arr)
         {
             return arr == null || arr.Length != 2;
         }
 
-        bool checkName(string name)
+        public bool checkName(string name)
         {
             return name.Length < 2 || name.Length > 999;
         }
 
-        string combineNames(string name1, string name2)
+        public string combineNames(string name1, string name2)
         {
             char[] charName1 = name1.ToLower().ToCharArray();
             char[] charName2 = name2.ToLower().ToCharArray();
@@ -54,7 +54,7 @@ namespace CrossPlatformLabs.LabOne
                 return cutName(name1, startIndex) + name2;
         }
 
-        string chooseAppropriateResult(string res1, string res2)
+        public string chooseAppropriateResult(string res1, string res2)
         {
             return res1.Length < res2.Length ? res1 : res2;
         }
@@ -62,8 +62,8 @@ namespace CrossPlatformLabs.LabOne
         public void Start()
         {
             string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\"));
-            string inputPath = Path.Combine(rootDirectory, "Lab1\\input.txt");
-            string outputPath = Path.Combine(rootDirectory, "Lab1\\output.txt");
+            string inputPath = Path.Combine(rootDirectory, "Labs\\Lab1\\input.txt");
+            string outputPath = Path.Combine(rootDirectory, "Labs\\Lab1\\output.txt");
 
             string[] names = getNames(inputPath);
 
@@ -71,6 +71,8 @@ namespace CrossPlatformLabs.LabOne
                 return;
             if (checkName(names[0]) || checkName(names[1]))
                 return;
+
+            Console.WriteLine("Names: " + names[0] + " and " + names[1]);
 
             string res1 = combineNames(names[0], names[1]);
             string res2 = combineNames(names[1], names[0]);
@@ -80,7 +82,7 @@ namespace CrossPlatformLabs.LabOne
             File.WriteAllText(outputPath, res);
 
             Console.WriteLine("Program succesfully finished");
-            Console.ReadKey();
+            Console.WriteLine("Result is " + res);
         }
     }
 }
