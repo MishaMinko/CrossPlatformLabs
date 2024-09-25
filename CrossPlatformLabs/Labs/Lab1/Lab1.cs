@@ -81,7 +81,6 @@ namespace CrossPlatformLabs.Labs
 
             File.WriteAllText(outputPath, res);
 
-            Console.WriteLine("Program succesfully finished");
             Console.WriteLine("Result is " + res);
         }
     }

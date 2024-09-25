@@ -1,4 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project>
-	
+	<PropertyGroup>
+		<SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+		<MainProjectPath>$(SolutionDir)CrossPlatformLabs\CrossPlatformLabs.csproj</MainProjectPath>
+		<TestProjectPath>$(SolutionDir)Tests\Tests.csproj</TestProjectPath>
+	</PropertyGroup>
+
+	<Target Name="Build">
+		<Message Text="Building main project: $(MainProjectPath)" />
+		<MSBuild Projects="$(MainProjectPath)" Targets="Build" />
+	</Target>
+
+	<Target Name="Run">
+		<Message Text="Running main project: $(MainProjectPath)" />
+		<Exec Command="dotnet run --project &quot;$(MainProjectPath)&quot;" />
+	</Target>
+
+	<Target Name="Test">
+		<Message Text="Running tests for project: $(TestProjectPath)" />
+		<Exec Command="dotnet test &quot;$(TestProjectPath)&quot;" />
+	</Target>
 </Project>
