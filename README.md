@@ -24,7 +24,7 @@ msbuild build.csproj /t:Test1
 
 ## Приклади
 
-| №  | INPUT.TXT        | OUTPUT.TXT  |
-|----|------------------|-------------|
-| 1  | Misha <br> Masha | MashaMisha  |
-| 2  | Julya <br> Lyalya| JuLyalya    |
+| № | INPUT.TXT        | OUTPUT.TXT  |
+|---|------------------|-------------|
+| 1 | Misha <br> Masha | MashaMisha  |
+| 2 | Julya <br> Lyalya| JuLyalya    |
