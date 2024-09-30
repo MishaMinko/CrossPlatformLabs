@@ -61,7 +61,17 @@
             string inputPath = Path.Combine(rootDirectory, "input.txt");
             string outputPath = Path.Combine(rootDirectory, "output.txt");
 
-            string[] names = getNames(inputPath);
+            string[] names = null!;
+
+            try
+            {
+                names = getNames(inputPath);
+            }
+            catch (FileNotFoundException e)
+            {
+                Console.WriteLine(e.Message);
+                return;
+            }
 
             if (checkArr(names))
                 return;
