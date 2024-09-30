@@ -67,16 +67,22 @@
             {
                 names = getNames(inputPath);
             }
-            catch (FileNotFoundException e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 return;
             }
 
             if (checkArr(names))
+            {
+                Console.WriteLine("There are no names in file 'input.txt'. Enter two names, please.");
                 return;
+            }
             if (checkName(names[0]) || checkName(names[1]))
+            {
+                Console.WriteLine("Length of names must be more than 1 and less than 1000");
                 return;
+            }
 
             Console.WriteLine("Names: " + names[0] + " and " + names[1]);
 
