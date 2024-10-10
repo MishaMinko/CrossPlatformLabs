@@ -1,12 +1,9 @@
 # Запуск проєкту
 
 Для запуску необхідно в корені проєкту вводити таким чином команди:
-- **msbuild build.csproj /t:Build(номер лаби)**
-- **msbuild build.csproj /t:Test(номер лаби)**
-- **msbuild build.csproj /t:Run(номер лаби)**
-
-## Наприклад потрібно запустити тести 1 лабораторної роботи:
-msbuild build.csproj /t:Test1
+- **dotnet build Build.proj -p:Solution=Lab1 -t:Build**
+- **dotnet build Build.proj -p:Solution=Lab1 -t:Run**
+- **dotnet build Build.proj -p:Solution=Lab1.Tests -t:Test**
 
 # Варіант 62
 
