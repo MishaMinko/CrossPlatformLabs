@@ -2,45 +2,63 @@ namespace Lab3.Tests
 {
     public class Tests
     {
+        private Main lab = null;
+
         [SetUp]
         public void Setup()
         {
+            lab = new Main();
+        }
+
+        //checkString method
+        [Test]
+        public void checkStringEmpty()
+        {
+            Assert.IsTrue(lab.checkString(String.Empty));
         }
 
         [Test]
-        public void Test1()
+        public void checkStringLess()
         {
-            Assert.Pass();
+            Assert.IsTrue(lab.checkString(""));
         }
 
         [Test]
-        public void Test2()
+        public void checkStringMore()
         {
-            Assert.Pass();
+            string str = "123456789012345";
+            Assert.IsTrue(lab.checkString(str));
         }
 
         [Test]
-        public void Test3()
+        public void checkStringCorrect()
         {
-            Assert.Pass();
+            Assert.IsFalse(lab.checkString("ABCDE"));
+        }
+
+        //checkUppercase method
+        [Test]
+        public void checkUppercaseCorrect()
+        {
+            Assert.IsFalse(lab.checkUppercase("ABCDE"));
         }
 
         [Test]
-        public void Test4()
+        public void checkUppercaseLowcase()
         {
-            Assert.Pass();
+            Assert.IsTrue(lab.checkUppercase("AbcDE"));
         }
 
         [Test]
-        public void Test5()
+        public void checkUppercaseNumbers()
         {
-            Assert.Pass();
+            Assert.IsTrue(lab.checkUppercase("S22D5254"));
         }
 
         [Test]
-        public void Test6()
+        public void checkUppercaseOtherSymbols()
         {
-            Assert.Pass();
+            Assert.IsTrue(lab.checkUppercase("HDU&VBD*H"));
         }
     }
 }
