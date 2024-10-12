@@ -13,18 +13,18 @@
             string inputPath = Path.Combine(rootDirectory, "input.txt");
             string outputPath = Path.Combine(rootDirectory, "output.txt");
 
-            //int numberOfSteps = 0;
+            string balls = String.Empty;
 
-            //try
-            //{
-            //    string[] number = getDataFromFile(inputPath);
-            //    numberOfSteps = Convert.ToInt32(number[0]);
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //    return;
-            //}
+            try
+            {
+                string[] data = getDataFromFile(inputPath);
+                balls = data[0];
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return;
+            }
 
             //if (checkNumber(numberOfSteps))
             //{
