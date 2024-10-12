@@ -2,7 +2,7 @@
 {
     public class Main
     {
-        public string[] getNumber(string path)
+        public string[] getDataFromFile(string path)
         {
             return File.ReadAllLines(path);
         }
@@ -63,7 +63,7 @@
 
             try
             {
-                string[] number = getNumber(inputPath);
+                string[] number = getDataFromFile(inputPath);
                 numberOfSteps = Convert.ToInt32(number[0]);
             }
             catch (Exception e)

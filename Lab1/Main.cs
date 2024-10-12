@@ -2,7 +2,7 @@
 {
     public class Main
     {
-        public string[] getNames(string path)
+        public string[] getDataFromFile(string path)
         {
             return File.ReadAllLines(path);
         }
@@ -65,7 +65,7 @@
 
             try
             {
-                names = getNames(inputPath);
+                names = getDataFromFile(inputPath);
             }
             catch (Exception e)
             {
