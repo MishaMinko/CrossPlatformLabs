@@ -7,6 +7,19 @@
             return File.ReadAllLines(path);
         }
 
+        public bool checkUppercase(string data)
+        {
+            foreach (char i in data)
+            {
+                if (i < 'A' || i > 'Z')
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
         public void Start()
         {
             string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
@@ -26,11 +39,16 @@
                 return;
             }
 
-            //if (checkNumber(numberOfSteps))
-            //{
-            //    Console.WriteLine("The number of steps is less than 0 or higher thab 100.");
-            //    return;
-            //}
+            if(balls.Equals(String.Empty) || balls.Length > 14 || balls.Length < 1)
+            {
+                Console.WriteLine("You need to enter at least 1 uppercase symbol, maximum of symbols is 14.");
+                return;
+            }
+            if (checkUppercase(balls))
+            {
+                Console.WriteLine("There only must be uppercase symbols A-Z.");
+                return;
+            }
 
             //Console.WriteLine("Number of steps: " + numberOfSteps);
 
