@@ -7,15 +7,16 @@
             return File.ReadAllLines(path);
         }
 
+        public bool checkString(string data)
+        {
+            return data.Equals(String.Empty) || data.Length > 14 || data.Length < 1;
+        }
+
         public bool checkUppercase(string data)
         {
             foreach (char i in data)
-            {
                 if (i < 'A' || i > 'Z')
-                {
                     return true;
-                }
-            }
             return false;
         }
 
@@ -39,7 +40,7 @@
                 return;
             }
 
-            if(balls.Equals(String.Empty) || balls.Length > 14 || balls.Length < 1)
+            if(checkString(balls))
             {
                 Console.WriteLine("You need to enter at least 1 uppercase symbol, maximum of symbols is 14.");
                 return;
