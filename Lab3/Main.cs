@@ -50,7 +50,7 @@
                 return;
             }
 
-            //Console.WriteLine("Number of steps: " + numberOfSteps);
+            Console.WriteLine("Entered balls: " + balls);
 
             //long[] sequence = generateSequence(numberOfSteps);
 
