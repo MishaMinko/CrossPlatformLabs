@@ -4,15 +4,16 @@
     {
         public Node main;
         public string startStr;
+        public int index;
 
         public Tree(string str, int index)
         {
             main = null!;
             startStr = str;
-            startGenerating(index);
+            this.index = index;
         }
 
-        public void startGenerating(int index)
+        public void startGenerating()
         {
             if (main == null)
             {
@@ -52,9 +53,9 @@
             children = null!;
         }
 
-        public void doOperation(string str)
+        public void doOperation(string strStart)
         {
-            strNow = str;
+            strNow = strStart;
 
             char ballToInsert = chooseBall();
             insertBall(ballToInsert.ToString());
@@ -65,9 +66,22 @@
 
             if(!checkIfFinished())
             {
-                children = new Node[strNow.Length];
-                for(int i = 0; i < children.Length; i++)
-                    children[i] = new Node(i);
+                int required = 1;
+                for (int i = 1; i < strNow.Length; i++)
+                    if (!strNow.ElementAt(i).Equals(strNow.ElementAt(i - 1)))
+                        required++;
+
+                children = new Node[required];
+                children[0] = new Node(0);
+                required = 1;
+                for (int i = 1; i < strNow.Length; i++)
+                {
+                    if (!strNow.ElementAt(i).Equals(strNow.ElementAt(i - 1)))
+                    {
+                        children[required] = new Node(i);
+                        required++;
+                    }
+                }
             }
         }
 
@@ -181,10 +195,25 @@
 
         public Tree[] generateSteps(string str)
         {
-            Tree[] res = new Tree[str.Length + 1];
+            int required = 1;
+            for (int i = 1; i < str.Length; i++)
+                if (!str.ElementAt(i).Equals(str.ElementAt(i - 1)))
+                    required++;
 
-            for (int i = 0; i < str.Length + 1; i++)
-                res[i] = new Tree(str, i);
+            Tree[] res = new Tree[required];
+            res[0] = new Tree(str, 0);
+            required = 1;
+            for (int i = 1; i < str.Length; i++)
+            {
+                if (!str.ElementAt(i).Equals(str.ElementAt(i - 1)))
+                {
+                    res[required] = new Tree(str, i);
+                    required++;
+                }
+            }
+
+            foreach (Tree tree in res)
+                tree.startGenerating();
 
             return res;
         }
@@ -229,10 +258,8 @@
             new Node(1).doOperation(balls);
 
             Tree[] res = generateSteps(balls);
-            Console.WriteLine("RES DONE\t\t" + res.Length);
-
-
-            //Tree[] results = generateSteps(balls);
+            Console.WriteLine("RES DONE: " + res.Length);
+            Console.ReadLine();
 
             //Console.WriteLine("Sequence:");
             //for (int i = 0; i < sequence.Length; i++)
