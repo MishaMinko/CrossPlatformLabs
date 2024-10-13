@@ -5,36 +5,40 @@
         public Node main;
         public string startStr;
         public int index;
+        public int minSteps;
 
         public Tree(string str, int index)
         {
             main = null!;
             startStr = str;
             this.index = index;
+            minSteps = 11;
         }
 
         public void startGenerating()
         {
             if (main == null)
             {
-                main = new Node(index);
-                main.doOperation(startStr);
+                main = new Node(index, startStr);
+                main.doOperation();
             }
 
             if(!main.checkIfFinished())
                 foreach (Node child in main.children)
-                    deepDive(child, 1, main.strNow);
+                    deepDive(child, 1);
         }
 
-        public void deepDive(Node node, int currentDive, string currentStr)
+        public void deepDive(Node node, int currentDive)
         {
-            if(currentDive < 11)
+            if(currentDive < minSteps)
             {
-                node.doOperation(currentStr);
+                node.doOperation();
 
-                if(!node.checkIfFinished())
-                    foreach(Node child in node.children)
-                        deepDive(child, currentDive + 1, currentStr);
+                if (!node.checkIfFinished())
+                    foreach (Node child in node.children)
+                        deepDive(child, currentDive + 1);
+                else
+                    minSteps = currentDive;
             }
         }
     }
@@ -45,18 +49,16 @@
         public string strNow;
         public Node[] children;
 
-        public Node(int index)
+        public Node(int index, string strStart)
         {
             this.index = index;
             stepDone = "0";
-            strNow = "0";
             children = null!;
+            strNow = strStart;
         }
 
-        public void doOperation(string strStart)
+        public void doOperation()
         {
-            strNow = strStart;
-
             char ballToInsert = chooseBall();
             insertBall(ballToInsert.ToString());
 
@@ -72,13 +74,13 @@
                         required++;
 
                 children = new Node[required];
-                children[0] = new Node(0);
+                children[0] = new Node(0, strNow);
                 required = 1;
                 for (int i = 1; i < strNow.Length; i++)
                 {
                     if (!strNow.ElementAt(i).Equals(strNow.ElementAt(i - 1)))
                     {
-                        children[required] = new Node(i);
+                        children[required] = new Node(i, strNow);
                         required++;
                     }
                 }
@@ -92,20 +94,17 @@
             while (startIndex > 0 && strNow.ElementAt(startIndex - 1).Equals(insertedBall))
                 startIndex--;
             int endIndex = index;
-            while (endIndex < strNow.Length - 1 && strNow.ElementAt(endIndex + 1).Equals(insertedBall))
+            while (endIndex < strNow.Length && strNow.ElementAt(endIndex).Equals(insertedBall))
                 endIndex++;
 
             int countToDelete = endIndex - startIndex;
-            if (startIndex != 0)
-                countToDelete++;
+
             if (countToDelete > 2)
             {
                 strNow = strNow.Remove(startIndex, countToDelete);
 
-                if (strNow.Length > 0 && endIndex < strNow.Length - 1 + countToDelete)
+                if (strNow.Length > 0 && endIndex < strNow.Length - 1 + countToDelete && startIndex > 0)
                 {
-                    startIndex = strNow.Length - 1;
-
                     if (startIndex > 0)
                     {
                         if (strNow.ElementAt(startIndex).Equals(strNow.ElementAt(startIndex - 1)))
@@ -218,6 +217,65 @@
             return res;
         }
 
+        private List<string> collectSteps(Node node)
+        {
+            List<string> steps = new List<string>();
+
+            if (node != null)
+            {
+                steps.Add(node.stepDone);
+
+                if (node.children != null && node.children.Length > 0)
+                {
+                    List<string> bestChildSteps = null!;
+                    int minSteps = int.MaxValue;
+
+                    foreach (Node child in node.children)
+                    {
+                        List<string> childSteps = collectSteps(child);
+
+                        if (childSteps.Count < minSteps)
+                        {
+                            minSteps = childSteps.Count;
+                            bestChildSteps = childSteps;
+                        }
+                    }
+
+                    if (bestChildSteps != null)
+                        steps.AddRange(bestChildSteps);
+                }
+            }
+
+            return steps;
+        }
+
+        public string calculateBestSolution(Tree[] trees)
+        {
+            int minSteps = 11;
+            List<string> bestSteps = null!;
+
+            foreach (Tree tree in trees)
+            {
+                List<string> steps = collectSteps(tree.main);
+
+                if (steps.Count < minSteps)
+                {
+                    minSteps = steps.Count;
+                    bestSteps = steps;
+                }
+            }
+
+            if (bestSteps == null)
+                return "";
+
+            string res = minSteps.ToString();
+            foreach (string step in bestSteps)
+                res += " " + step;
+
+            return res;
+        }
+
+
         public void Start()
         {
             string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
@@ -250,27 +308,13 @@
 
             Console.WriteLine("Entered balls: " + balls);
 
-            Console.WriteLine(balls.Insert(0, "W"));
-            Console.WriteLine(balls.Insert(1, "W"));
-            Console.WriteLine(balls.Insert(2, "W"));
-            Console.WriteLine(balls.Insert(balls.Length, "W"));
+            Tree[] trees = generateSteps(balls);
 
-            new Node(1).doOperation(balls);
+            string res = calculateBestSolution(trees);
 
-            Tree[] res = generateSteps(balls);
-            Console.WriteLine("RES DONE: " + res.Length);
-            Console.ReadLine();
+            File.WriteAllText(outputPath, res.ToString());
 
-            //Console.WriteLine("Sequence:");
-            //for (int i = 0; i < sequence.Length; i++)
-            //    Console.Write(sequence[i] + " ");
-            //Console.WriteLine();
-
-            //long res = calculateSequence(sequence);
-
-            //File.WriteAllText(outputPath, res.ToString());
-
-            //Console.WriteLine("Result is " + res);
+            Console.WriteLine("Result is " + res);
         }
     }
 }
