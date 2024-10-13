@@ -228,7 +228,7 @@
                 if (node.children != null && node.children.Length > 0)
                 {
                     List<string> bestChildSteps = null!;
-                    int minSteps = int.MaxValue;
+                    int minSteps = 11;
 
                     foreach (Node child in node.children)
                     {
