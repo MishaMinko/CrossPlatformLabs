@@ -21,15 +21,20 @@
             }
 
             if(!main.checkIfFinished())
-            {
-                deepDive(main.left, 1, main.strNow);
-                deepDive(main.right, 1, main.strNow);
-            }
+                foreach (Node child in main.children)
+                    deepDive(child, 1, main.strNow);
         }
 
         public void deepDive(Node node, int currentDive, string currentStr)
         {
+            if(currentDive < 11)
+            {
+                node.doOperation(currentStr);
 
+                if(!node.checkIfFinished())
+                    foreach(Node child in node.children)
+                        deepDive(child, currentDive + 1, currentStr);
+            }
         }
     }
     public class Node
@@ -37,29 +42,72 @@
         public int index;
         public string stepDone;
         public string strNow;
-        public Node left;
-        public Node right;
+        public Node[] children;
 
         public Node(int index)
         {
             this.index = index;
             stepDone = "0";
             strNow = "0";
-            left = null!;
-            right = null!;
+            children = null!;
         }
 
         public void doOperation(string str)
         {
             strNow = str;
 
-            insertBall(chooseBall().ToString());
+            char ballToInsert = chooseBall();
+            insertBall(ballToInsert.ToString());
 
-            //check
+            removeBalls(ballToInsert);
 
-            //checkFuture
+            stepDone = ballToInsert.ToString() + index.ToString();
 
-            //createChildren
+            if(!checkIfFinished())
+            {
+                children = new Node[strNow.Length];
+                for(int i = 0; i < children.Length; i++)
+                    children[i] = new Node(i);
+            }
+        }
+
+        public void removeBalls(char insertedBall)
+        {
+            int startIndex = index;
+
+            while (startIndex > 0 && strNow.ElementAt(startIndex - 1).Equals(insertedBall))
+                startIndex--;
+            int endIndex = index;
+            while (endIndex < strNow.Length - 1 && strNow.ElementAt(endIndex + 1).Equals(insertedBall))
+                endIndex++;
+
+            int countToDelete = endIndex - startIndex;
+            if (startIndex != 0)
+                countToDelete++;
+            if (countToDelete > 2)
+            {
+                strNow = strNow.Remove(startIndex, countToDelete);
+
+                if (strNow.Length > 0 && endIndex < strNow.Length - 1 + countToDelete)
+                {
+                    startIndex = strNow.Length - 1;
+
+                    if (startIndex > 0)
+                    {
+                        if (strNow.ElementAt(startIndex).Equals(strNow.ElementAt(startIndex - 1)))
+                        {
+                            index = startIndex;
+                            removeBalls(strNow.ElementAt(index));
+                        }
+                    }
+                    else if (startIndex + 1 < strNow.Length)
+                        if (strNow.ElementAt(startIndex).Equals(strNow.ElementAt(startIndex + 1)))
+                        {
+                            index = startIndex;
+                            removeBalls(strNow.ElementAt(index));
+                        }
+                }
+            }   
         }
 
         public char chooseBall()
@@ -75,14 +123,20 @@
 
                 if (!left.Equals(right))
                 {
+                    int currentIndex = index - 2;
                     int leftCount = 1;
                     int rightCount = 1;
-                    if (index > 1)
-                        if (strNow.ElementAt(index - 2).Equals(left))
-                            leftCount++;
-                    if (index + 1 < strNow.Length)
-                        if (strNow.ElementAt(index + 1).Equals(right))
-                            rightCount++;
+                    while (currentIndex > 1 && strNow.ElementAt(currentIndex).Equals(left))
+                    {
+                        leftCount++;
+                        currentIndex--;
+                    }
+                    currentIndex = index + 1;
+                    if (currentIndex < strNow.Length && strNow.ElementAt(currentIndex).Equals(right))
+                    {
+                        rightCount++;
+                        currentIndex++;
+                    }
 
                     if (leftCount >= rightCount)
                         return left;
@@ -96,7 +150,7 @@
 
         public void insertBall(string ball)
         {
-            strNow.Insert(index, ball);
+            strNow = strNow.Insert(index, ball);
         }
 
         public bool checkIfFinished()
@@ -171,6 +225,12 @@
             Console.WriteLine(balls.Insert(1, "W"));
             Console.WriteLine(balls.Insert(2, "W"));
             Console.WriteLine(balls.Insert(balls.Length, "W"));
+
+            new Node(1).doOperation(balls);
+
+            Tree[] res = generateSteps(balls);
+            Console.WriteLine("RES DONE\t\t" + res.Length);
+
 
             //Tree[] results = generateSteps(balls);
 
