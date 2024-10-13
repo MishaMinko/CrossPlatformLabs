@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Lab3
+﻿namespace Lab3
 {
     public class Tree
     {
@@ -22,7 +20,7 @@ namespace Lab3
                 main.doOperation(startStr);
             }
 
-            if(main.checkIfFinished())
+            if(!main.checkIfFinished())
             {
                 deepDive(main.left, 1, main.strNow);
                 deepDive(main.right, 1, main.strNow);
@@ -55,7 +53,45 @@ namespace Lab3
         {
             strNow = str;
 
-            //insertBall(ball);
+            insertBall(chooseBall().ToString());
+
+            //check
+
+            //checkFuture
+
+            //createChildren
+        }
+
+        public char chooseBall()
+        {
+            if(index == 0)
+                return strNow.ElementAt(0);
+            else if (index == strNow.Length)
+                return strNow.ElementAt(strNow.Length - 1);
+            else
+            {
+                char left = strNow.ElementAt(index - 1);
+                char right = strNow.ElementAt(index);
+
+                if (!left.Equals(right))
+                {
+                    int leftCount = 1;
+                    int rightCount = 1;
+                    if (index > 1)
+                        if (strNow.ElementAt(index - 2).Equals(left))
+                            leftCount++;
+                    if (index + 1 < strNow.Length)
+                        if (strNow.ElementAt(index + 1).Equals(right))
+                            rightCount++;
+
+                    if (leftCount >= rightCount)
+                        return left;
+                    else
+                        return right;
+                }
+                else
+                    return left;
+            }
         }
 
         public void insertBall(string ball)
@@ -130,6 +166,10 @@ namespace Lab3
             }
 
             Console.WriteLine("Entered balls: " + balls);
+
+            Console.WriteLine(balls.Insert(0, "W"));
+            Console.WriteLine(balls.Insert(1, "W"));
+            Console.WriteLine(balls.Insert(2, "W"));
             Console.WriteLine(balls.Insert(balls.Length, "W"));
 
             //Tree[] results = generateSteps(balls);
