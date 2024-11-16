@@ -1,7 +1,8 @@
-﻿using McMaster.Extensions.CommandLineUtils;
+﻿using Lab4;
+using McMaster.Extensions.CommandLineUtils;
 
 [Command(Name = "Lab4", Description = "Open labs app")]
-[Subcommand(typeof(VersionCommand))]
+[Subcommand(typeof(VersionCommand), typeof(RunCommand))]
 class Program
 {
     static int Main(string[] args)
@@ -17,11 +18,6 @@ class Program
 
         return app.Execute(args);
     }
-
-    private void OnExecute()
-    {
-        Console.WriteLine("Enter command");
-    }
 }
 //3.a
 [Command(Name = "version", Description = "Displays app version and author")]
@@ -31,5 +27,74 @@ class VersionCommand
     {
         Console.WriteLine("Author: Fursenko Misha IPZ-32");
         Console.WriteLine("Version: 1.0.0");
+    }
+}
+//3.b
+[Command(Name = "start", Description = "Start a specific lab")]
+class RunCommand
+{
+    [Argument(0, "lab", "Enter lab (lab1, lab2, lab3)")]
+    public string? ChosenLab { get; set; }
+
+    [Option("-i|--input", "Input file", CommandOptionType.SingleValue)]
+    public string? InputFile { get; set; }
+
+    [Option("-o|--output", "Output file", CommandOptionType.SingleValue)]
+    public string? OutputFile { get; set; }
+
+    private void OnExecute()
+    {
+        if (string.IsNullOrEmpty(ChosenLab))
+        {
+            Console.WriteLine("Lab not specified.");
+            return;
+        }
+
+        string? labPath = GetLabDir(ChosenLab);
+        if (labPath == null)
+        {
+            Console.WriteLine($"Unknown lab '{ChosenLab}'");
+            return;
+        }
+
+        string inputPath = InputFile ?? Path.Combine(labPath, "input.txt");
+        string outputPath = OutputFile ?? Path.Combine(labPath, "output.txt");
+
+        if (!File.Exists(inputPath))
+        {
+            Console.WriteLine($"Input file '{inputPath}' not found.");
+            return;
+        }
+
+        var runLab = new LabsConnection();
+
+        switch (ChosenLab.ToLower())
+        {
+            case "lab1":
+                runLab.RunLab1(inputPath, outputPath);
+                break;
+            case "lab2":
+                runLab.RunLab2(inputPath, outputPath);
+                break;
+            case "lab3":
+                runLab.RunLab3(inputPath, outputPath);
+                break;
+            default:
+                Console.WriteLine("Unknown lab");
+                break;
+        }
+        Console.WriteLine($"{ChosenLab} completed. Output saved here: {outputPath}");
+    }
+
+    private string? GetLabDir(string labName)
+    {
+        string projectRoot = Directory.GetCurrentDirectory();
+        switch (labName.ToLower())
+        {
+            case "lab1": return Path.Combine(projectRoot, "Lab1");
+            case "lab2": return Path.Combine(projectRoot, "Lab2");
+            case "lab3": return Path.Combine(projectRoot, "Lab3");
+            default: return null;
+        }
     }
 }

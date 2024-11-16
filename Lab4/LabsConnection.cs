@@ -9,6 +9,17 @@ namespace Lab4
 {
     public class LabsConnection
     {
-        
+        public void RunLab1(string inputFile, string outputFile)
+        {
+
+        }
+        public void RunLab2(string inputFile, string outputFile)
+        {
+
+        }
+        public void RunLab3(string inputFile, string outputFile)
+        {
+
+        }
     }
 }
