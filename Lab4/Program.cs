@@ -57,32 +57,43 @@ class RunCommand
             return;
         }
 
-        string inputPath = InputFile;
-        string outputPath = OutputFile;
-        if (string.IsNullOrEmpty(inputPath))
+        string inputPath = String.Empty;
+        string outputPath = String.Empty;
+
+        if (!String.IsNullOrEmpty(InputFile))
+            inputPath = InputFile;
+        if (!String.IsNullOrEmpty(OutputFile))
+            inputPath = OutputFile;
+
+        if (string.IsNullOrEmpty(inputPath) || string.IsNullOrEmpty(outputPath))
         {
             string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
             Console.WriteLine("LAB_PATH: " + labPathEnv);
             if (!string.IsNullOrEmpty(labPathEnv))
             {
-                inputPath = Path.Combine(labPathEnv, "input.txt");
-                outputPath = Path.Combine(labPathEnv, "output.txt");
+                if (string.IsNullOrEmpty(inputPath))
+                    inputPath = Path.Combine(labPathEnv, "input.txt");
+                if (string.IsNullOrEmpty(outputPath))
+                    outputPath = Path.Combine(labPathEnv, "output.txt");
             }
         }
-        if (string.IsNullOrEmpty(inputPath))
+        if (string.IsNullOrEmpty(inputPath) || string.IsNullOrEmpty(outputPath))
         {
             string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            inputPath = Path.Combine(homeDir, "input.txt");
-            outputPath = Path.Combine(homeDir, "output.txt");
+            if (string.IsNullOrEmpty(inputPath))
+                inputPath = Path.Combine(homeDir, "input.txt");
+            if (string.IsNullOrEmpty(outputPath))
+                outputPath = Path.Combine(homeDir, "output.txt");
             //string inputPath = Path.Combine(labPath, "input.txt");
             //string outputPath = Path.Combine(labPath, "output.txt");
         }
-        if (string.IsNullOrEmpty(inputPath) || !File.Exists(inputPath))
+        if (string.IsNullOrEmpty(inputPath) || !File.Exists(inputPath) || string.IsNullOrEmpty(outputPath))
         {
             Console.WriteLine($"Input file not found. Checked paths:\n" +
                 $"- Command-line parameter: {InputFile}\n" +
                 $"- LAB_PATH: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}\n" +
-                $"- Home directory: {Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "input.txt")}");
+                $"- Home directory: {Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "input.txt")}\n" +
+                $"- Output path: {outputPath}");
             return;
         }
 

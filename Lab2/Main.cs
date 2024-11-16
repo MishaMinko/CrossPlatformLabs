@@ -53,12 +53,8 @@
             return res;
         }
 
-        public void Start()
+        public void completeFunction(string inputPath, string outputPath)
         {
-            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
-            string inputPath = Path.Combine(rootDirectory, "input.txt");
-            string outputPath = Path.Combine(rootDirectory, "output.txt");
-
             int numberOfSteps = 0;
 
             try
@@ -92,6 +88,19 @@
             File.WriteAllText(outputPath, res.ToString());
 
             Console.WriteLine("Result is " + res);
+        }
+
+        public void Start()
+        {
+            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
+            string inputPath = Path.Combine(rootDirectory, "input.txt");
+            string outputPath = Path.Combine(rootDirectory, "output.txt");
+            completeFunction(inputPath, outputPath);
+        }
+
+        public void Start(string inputPath, string outputPath)
+        {
+            completeFunction(inputPath, outputPath);
         }
     }
 }
