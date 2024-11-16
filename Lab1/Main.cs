@@ -90,6 +90,7 @@
             File.WriteAllText(outputPath, res);
 
             Console.WriteLine("Result is " + res);
+            Console.WriteLine($"Lab1 completed. Output saved here: {outputPath}");
         }
 
         public void Start()

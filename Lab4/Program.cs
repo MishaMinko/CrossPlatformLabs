@@ -1,5 +1,4 @@
-﻿using Lab4;
-using McMaster.Extensions.CommandLineUtils;
+﻿using McMaster.Extensions.CommandLineUtils;
 
 [Command(Name = "Lab4", Description = "Open labs app")]
 [Subcommand(typeof(VersionCommand), typeof(RunCommand), typeof(SetPathCommand))]
@@ -97,24 +96,51 @@ class RunCommand
             return;
         }
 
-        var runLab = new LabsConnection();
-
         switch (ChosenLab.ToLower())
         {
             case "lab1":
-                runLab.RunLab1(inputPath, outputPath);
+                {
+                    try
+                    {
+                        Lab1.Main main = new Lab1.Main();
+                        main.Start(inputPath, outputPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
                 break;
             case "lab2":
-                runLab.RunLab2(inputPath, outputPath);
+                {
+                    try
+                    {
+                        Lab2.Main main = new Lab2.Main();
+                        main.Start(inputPath, outputPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
                 break;
             case "lab3":
-                runLab.RunLab3(inputPath, outputPath);
+                {
+                    try
+                    {
+                        Lab3.Main main = new Lab3.Main();
+                        main.Start(inputPath, outputPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                    }
+                }
                 break;
             default:
                 Console.WriteLine("Unknown lab");
                 break;
         }
-        Console.WriteLine($"{ChosenLab} completed. Output saved here: {outputPath}");
     }
 
     private string? GetLabDir(string labName)

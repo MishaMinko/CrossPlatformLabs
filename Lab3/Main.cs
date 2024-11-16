@@ -310,6 +310,7 @@
             File.WriteAllText(outputPath, res.ToString());
 
             Console.WriteLine("Result is " + res);
+            Console.WriteLine($"Lab3 completed. Output saved here: {outputPath}");
         }
 
         public void Start()

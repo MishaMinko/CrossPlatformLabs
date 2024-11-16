@@ -88,6 +88,7 @@
             File.WriteAllText(outputPath, res.ToString());
 
             Console.WriteLine("Result is " + res);
+            Console.WriteLine($"Lab2 completed. Output saved here: {outputPath}");
         }
 
         public void Start()
