@@ -57,14 +57,32 @@ class RunCommand
             return;
         }
 
-        string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
-        Console.WriteLine("LAB_PATH: " + labPathEnv);
-        string inputPath = InputFile ?? (string.IsNullOrEmpty(labPathEnv) ? Path.Combine(labPath, "input.txt") : Path.Combine(labPathEnv, "input.txt"));
-        string outputPath = OutputFile ?? (string.IsNullOrEmpty(labPathEnv) ? Path.Combine(labPath, "output.txt") : Path.Combine(labPathEnv, "output.txt"));
-
-        if (!File.Exists(inputPath))
+        string inputPath = InputFile;
+        string outputPath = OutputFile;
+        if (string.IsNullOrEmpty(inputPath))
         {
-            Console.WriteLine($"Input file '{inputPath}' not found.");
+            string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
+            Console.WriteLine("LAB_PATH: " + labPathEnv);
+            if (!string.IsNullOrEmpty(labPathEnv))
+            {
+                inputPath = Path.Combine(labPathEnv, "input.txt");
+                outputPath = Path.Combine(labPathEnv, "output.txt");
+            }
+        }
+        if (string.IsNullOrEmpty(inputPath))
+        {
+            string homeDir = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            inputPath = Path.Combine(homeDir, "input.txt");
+            outputPath = Path.Combine(homeDir, "output.txt");
+            //string inputPath = Path.Combine(labPath, "input.txt");
+            //string outputPath = Path.Combine(labPath, "output.txt");
+        }
+        if (string.IsNullOrEmpty(inputPath) || !File.Exists(inputPath))
+        {
+            Console.WriteLine($"Input file not found. Checked paths:\n" +
+                $"- Command-line parameter: {InputFile}\n" +
+                $"- LAB_PATH: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}\n" +
+                $"- Home directory: {Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "input.txt")}");
             return;
         }
 
