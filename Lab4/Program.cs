@@ -2,7 +2,7 @@
 using McMaster.Extensions.CommandLineUtils;
 
 [Command(Name = "Lab4", Description = "Open labs app")]
-[Subcommand(typeof(VersionCommand), typeof(RunCommand))]
+[Subcommand(typeof(VersionCommand), typeof(RunCommand), typeof(SetPathCommand))]
 class Program
 {
     static int Main(string[] args)
@@ -57,8 +57,10 @@ class RunCommand
             return;
         }
 
-        string inputPath = InputFile ?? Path.Combine(labPath, "input.txt");
-        string outputPath = OutputFile ?? Path.Combine(labPath, "output.txt");
+        string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
+        Console.WriteLine("LAB_PATH: " + labPathEnv);
+        string inputPath = InputFile ?? (string.IsNullOrEmpty(labPathEnv) ? Path.Combine(labPath, "input.txt") : Path.Combine(labPathEnv, "input.txt"));
+        string outputPath = OutputFile ?? (string.IsNullOrEmpty(labPathEnv) ? Path.Combine(labPath, "output.txt") : Path.Combine(labPathEnv, "output.txt"));
 
         if (!File.Exists(inputPath))
         {
@@ -96,5 +98,18 @@ class RunCommand
             case "lab3": return Path.Combine(projectRoot, "Lab3");
             default: return null;
         }
+    }
+}
+//3.c
+[Command(Name = "set-path", Description = "Set input/output path")]
+class SetPathCommand
+{
+    [Option("-p|--path", "Path to input/output files", CommandOptionType.SingleValue)]
+    public required string Path { get; set; }
+
+    private void OnExecute()
+    {
+        Environment.SetEnvironmentVariable("LAB_PATH", Path, EnvironmentVariableTarget.User);
+        Console.WriteLine($"LAB_PATH set to: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}");
     }
 }
