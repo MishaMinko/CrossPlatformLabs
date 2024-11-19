@@ -62,12 +62,11 @@ class RunCommand
         if (!String.IsNullOrEmpty(InputFile))
             inputPath = InputFile;
         if (!String.IsNullOrEmpty(OutputFile))
-            inputPath = OutputFile;
+            outputPath = OutputFile;
 
         if (string.IsNullOrEmpty(inputPath) || string.IsNullOrEmpty(outputPath))
         {
-            string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
-            Console.WriteLine("LAB_PATH: " + labPathEnv);
+            string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH");
             if (!string.IsNullOrEmpty(labPathEnv))
             {
                 if (string.IsNullOrEmpty(inputPath))
@@ -90,8 +89,9 @@ class RunCommand
         {
             Console.WriteLine($"Input file not found. Checked paths:\n" +
                 $"- Command-line parameter: {InputFile}\n" +
-                $"- LAB_PATH: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}\n" +
+                $"- LAB_PATH: {Environment.GetEnvironmentVariable("LAB_PATH")}\n" +
                 $"- Home directory: {Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "input.txt")}\n" +
+                $"- Input path: {inputPath}\n" +
                 $"- Output path: {outputPath}");
             return;
         }
@@ -159,12 +159,12 @@ class RunCommand
 [Command(Name = "set-path", Description = "Set input/output path")]
 class SetPathCommand
 {
-    [Option("-p|--path", "Path to input/output files", CommandOptionType.SingleValue)]
+    [Option("-P|--path", "Path to input/output files", CommandOptionType.SingleValue)]
     public required string Path { get; set; }
 
     private void OnExecute()
     {
-        Environment.SetEnvironmentVariable("LAB_PATH", Path, EnvironmentVariableTarget.User);
-        Console.WriteLine($"LAB_PATH set to: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}");
+        Environment.SetEnvironmentVariable("LAB_PATH", Path);
+        Console.WriteLine($"LAB_PATH set to: {Environment.GetEnvironmentVariable("LAB_PATH")}");
     }
 }
