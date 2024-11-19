@@ -66,7 +66,7 @@ class RunCommand
 
         if (string.IsNullOrEmpty(inputPath) || string.IsNullOrEmpty(outputPath))
         {
-            string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH");
+            string? labPathEnv = Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User);
             if (!string.IsNullOrEmpty(labPathEnv))
             {
                 if (string.IsNullOrEmpty(inputPath))
@@ -90,7 +90,7 @@ class RunCommand
             Console.WriteLine($"Input file not found. Checked paths:\n" +
                 $"- Command-line parameter: {InputFile}\n" +
                 $"- LAB_PATH: {Environment.GetEnvironmentVariable("LAB_PATH")}\n" +
-                $"- Home directory: {Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "input.txt")}\n" +
+                $"- Home directory: {Environment.GetFolderPath(Environment.SpecialFolder.UserProfile)}\n" +
                 $"- Input path: {inputPath}\n" +
                 $"- Output path: {outputPath}");
             return;
@@ -164,7 +164,7 @@ class SetPathCommand
 
     private void OnExecute()
     {
-        Environment.SetEnvironmentVariable("LAB_PATH", Path);
-        Console.WriteLine($"LAB_PATH set to: {Environment.GetEnvironmentVariable("LAB_PATH")}");
+        Environment.SetEnvironmentVariable("LAB_PATH", Path, EnvironmentVariableTarget.User);
+        Console.WriteLine($"LAB_PATH set to: {Environment.GetEnvironmentVariable("LAB_PATH", EnvironmentVariableTarget.User)}");
     }
 }

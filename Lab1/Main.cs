@@ -71,7 +71,7 @@
 
             if (checkArr(names))
             {
-                Console.WriteLine("There are no names in file 'input.txt'. Enter two names, please.");
+                Console.WriteLine("Enter two names, please. " + names == null ? "Is empty" : ("Amount of names: " + names.Length + " " + names[0]) );
                 return;
             }
             if (checkName(names[0]) || checkName(names[1]))
