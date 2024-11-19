@@ -23,6 +23,5 @@ dotnet tool install --global lab4 --version 1.0.0
 dotnet --version
 
 cd /home/vagrant/project
-dotnet run --project lab4 -- version
 
-echo "Ubuntu environment setup complete and lab4 executed."
+echo "Ubuntu environment setup complete."

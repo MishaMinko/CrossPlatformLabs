@@ -1,21 +1,19 @@
+/// \CrossPlatformLabs\Lab4
 dotnet build --configuration Release
 dotnet pack --configuration Release
-
 docker run --rm -d -p 5000:80 --name baget loicsharma/baget:latest
-
 dotnet nuget add source http://localhost:5000/v3/index.json -n Baget
-
 //2
 dotnet nuget add source http://localhost:5000/v3/index.json --name Localhost --configfile ~/.nuget/NuGet/NuGet.config --allow-insecure-connections
 dotnet nuget trusted-signers add --name Localhost --configfile ~/.nuget/NuGet/NuGet.config
-
+//2
 dotnet nuget push bin/Release/MFursenko.1.0.0.nupkg --source privateBaget
 
 http://localhost:5000/v3/index.json
 
+// \CrossPlatformsLabs
 vagrant up
 vagrant halt
-
 vagrant destroy -f
 
 dotnet nuget remove source Localhost
@@ -25,10 +23,3 @@ dotnet nuget locals all --clear
 dotnet restore
 
 curl http://localhost:5000/v3/index.json
-
-
-// команди для перевірки в Ubuntu
-знаходитися у ~/project/Lab4
-dotnet run version
-dotnet run set-path -P home/vagrant/project/Lab4/Lab2
-dotnet run start lab2
