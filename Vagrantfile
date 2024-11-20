@@ -11,25 +11,25 @@ Vagrant.configure("2") do |config|
   # Common network configuration
   config.vm.network "public_network", bridge: "default"
   
-  # # Ubuntu Machine Configuration
-  # config.vm.define "ubuntu" do |ubuntu|
-    # ubuntu.vm.box = "bento/ubuntu-22.04"
-    # ubuntu.vm.hostname = "ubuntu-vm"
-	# # Port forwarding for your specific application
-    # ubuntu.vm.network "forwarded_port", guest: 7252, host: 7252
-    # # Try both private and public network
-    # ubuntu.vm.network "private_network", ip: hosts["ubuntu"]
-    # ubuntu.vm.provider "virtualbox" do |v|
-      # v.name = "UbuntuVM"
-      # v.memory = "8048"
-      # v.cpus = 10
-      # # Enable all network adapter types
-      # v.customize ["modifyvm", :id, "--nictype1", "82540EM"]
-      # v.customize ["modifyvm", :id, "--nictype2", "82540EM"]
-    # end
-    # ubuntu.vm.synced_folder ".", "/home/vagrant/project"
-    # ubuntu.vm.provision "shell", path: "provision-ubuntu.sh"
-  # end
+  # Ubuntu Machine Configuration
+  config.vm.define "ubuntu" do |ubuntu|
+    ubuntu.vm.box = "bento/ubuntu-22.04"
+    ubuntu.vm.hostname = "ubuntu-vm"
+	# Port forwarding for your specific application
+    ubuntu.vm.network "forwarded_port", guest: 7252, host: 7252
+    # Try both private and public network
+    ubuntu.vm.network "private_network", ip: hosts["ubuntu"]
+    ubuntu.vm.provider "virtualbox" do |v|
+      v.name = "UbuntuVM"
+      v.memory = "8048"
+      v.cpus = 10
+      # Enable all network adapter types
+      v.customize ["modifyvm", :id, "--nictype1", "82540EM"]
+      v.customize ["modifyvm", :id, "--nictype2", "82540EM"]
+    end
+    ubuntu.vm.synced_folder ".", "/home/vagrant/project"
+    ubuntu.vm.provision "shell", path: "provision-ubuntu.sh"
+  end
 
   config.vm.define "windows" do |windows|
     windows.vm.box = "gusztavvargadr/windows-10"
