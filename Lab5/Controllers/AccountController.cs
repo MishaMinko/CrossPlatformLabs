@@ -71,6 +71,8 @@ namespace Lab5.Controllers
                     };
 
                     var user = await client.Users.CreateAsync(userCreateRequest);
+                    if (User.Identity.IsAuthenticated)
+                        return RedirectToAction("Index", "Home");
                     return RedirectToAction("Login", "Account");
                 }
                 catch (Exception ex)

@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -17,10 +21,10 @@ builder.Services.AddAuthentication(options =>
     options.ClientSecret = builder.Configuration["Auth0:ClientSecret"];
     options.Authority = $"https://{builder.Configuration["Auth0:Domain"]}";
     options.ResponseType = "code";
-    options.SaveTokens = true;
     options.Scope.Add("openid");
     options.Scope.Add("profile");
     options.Scope.Add("email");
+    options.SaveTokens = true;
 });
 
 builder.Services.AddControllersWithViews();
