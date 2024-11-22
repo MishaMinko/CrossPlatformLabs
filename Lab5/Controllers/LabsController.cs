@@ -1,18 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lab5.Models;
 using MFursenko;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lab5.Controllers
 {
     public class LabsController : Controller
     {
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             return View(new LabViewModel());
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Index(LabViewModel model)
         {
             string selected = Request.Form["LabSelector"].ToString();

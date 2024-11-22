@@ -1,0 +1,15 @@
+﻿@using System.Security.Claims
+
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<h2>User Profile</h2>
+
+<p>Ім'я користувача: @User.Identity.Name</p>
+<p>Пошта: @User.FindFirst(ClaimTypes.Email)?.Value</p>
+<p>Повне ім'я: @User.FindFirst(ClaimTypes.GivenName)?.Value @User.FindFirst(ClaimTypes.Surname)?.Value</p>
+
+<form method="post" asp-action="Logout">
+    <button type="submit">Вийти з акаунта</button>
+</form>
