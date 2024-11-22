@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllersWithViews();
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -14,6 +16,11 @@ builder.Services.AddAuthentication(options =>
     options.Cookie.SameSite = SameSiteMode.None;
     options.LoginPath = "/Account/Login";
     options.LogoutPath = "/Account/Logout";
+    options.Events.OnRedirectToLogin = context =>
+    {
+        context.Response.Redirect("/Account/Login");
+        return Task.CompletedTask;
+    };
 })
 .AddOpenIdConnect(options =>
 {
@@ -31,18 +38,23 @@ builder.Services.AddAuthentication(options =>
     {
         OnAuthorizationCodeReceived = context =>
         {
+            Console.WriteLine("Authorization Code Received");
             return Task.CompletedTask;
         },
         OnRemoteFailure = context =>
         {
+            Console.WriteLine($"Remote failure: {context.Failure.Message}");
             context.Response.Redirect("/Home/Error");
             context.HandleResponse();
+            return Task.CompletedTask;
+        },
+        OnAuthenticationFailed = context =>
+        {
+            Console.WriteLine($"Authentication failed: {context.Exception.Message}");
             return Task.CompletedTask;
         }
     };
 });
-
-builder.Services.AddControllersWithViews();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
@@ -50,9 +62,12 @@ builder.Logging.AddDebug();
 
 var app = builder.Build();
 
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
+    app.UseDeveloperExceptionPage();
+else
 {
     app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
 }
 app.UseStaticFiles();
 
