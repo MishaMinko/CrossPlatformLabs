@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lab5.Models;
+using MFursenko;
 
 namespace Lab5.Controllers
 {
@@ -20,19 +21,21 @@ namespace Lab5.Controllers
             string inputPath = Path.GetTempFileName();
             string outputPath = Path.GetTempFileName();
 
+            LabExecutor lab = new LabExecutor();
+
             try
             {
                 System.IO.File.WriteAllText(inputPath, model.InputText ?? string.Empty);
                 switch (selected)
                 {
                     case "Lab1":
-                        new Lab1.Main().Start(inputPath, outputPath);
+                        lab.StartLab(inputPath, outputPath, 1);
                         break;
                     case "Lab2":
-                        new Lab2.Main().Start(inputPath, outputPath);
+                        lab.StartLab(inputPath, outputPath, 2);
                         break;
                     case "Lab3":
-                        new Lab3.Main().Start(inputPath, outputPath);
+                        lab.StartLab(inputPath, outputPath, 3);
                         break;
                     default:
                         model.OutputText = "Невідома лаба.";

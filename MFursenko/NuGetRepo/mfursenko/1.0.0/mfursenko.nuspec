@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MFursenko</id>
+    <version>1.0.0</version>
+    <authors>MFursenko</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="1b7f482529a0cc2f27ecf6ffbda36d7f2f211147" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>
