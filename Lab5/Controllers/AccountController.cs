@@ -107,8 +107,9 @@ namespace Lab5.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
+            var logoutUri = $"http://{_configuration["Auth0:Domain"]}/v2/logout?client_id={_configuration["Auth0:ClientId"]}&returnTo={Url.Action("Index", "Home", null, Request.Scheme)}";
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return Redirect(logoutUri);
         }
     }
 }
