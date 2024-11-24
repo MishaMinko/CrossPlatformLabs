@@ -18,9 +18,7 @@ sudo apt-get install -y dotnet-sdk-8.0
 
 # Configure BaGet as NuGet source using environment variable
 dotnet nuget add source http://localhost:5000/v3/index.json -n Baget
-dotnet tool install --global lab4 --version 1.0.0
-
-dotnet --version
+# dotnet tool install --global lab4 --version 1.0.0
 
 cd /home/vagrant/project
 
