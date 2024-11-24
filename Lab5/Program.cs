@@ -56,7 +56,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-builder.WebHost.UseUrls("http://0.0.0.0:5115");
+builder.WebHost.UseUrls("http://0.0.0.0:5145");
 
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();

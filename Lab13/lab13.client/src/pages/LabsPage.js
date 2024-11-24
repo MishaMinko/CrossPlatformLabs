@@ -13,10 +13,16 @@ const LabsPage = () => {
 
     const handleLabSubmit = async (selectedLab, inputText) => {
         try {
-            const response = await axios.post('/labs', {
+            const response = await axios.post('http://localhost:5145/Labs/Index', {
                 LabSelector: selectedLab,
                 InputText: inputText
+            }, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             });
+
+            console.log('Response:', response.data);
 
             setLabViewModel({
                 InputText: inputText,

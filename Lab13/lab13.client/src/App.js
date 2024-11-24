@@ -7,7 +7,6 @@ import LabsPage from './pages/LabsPage';
 import Profile from './components/Profile';
 import Register from './components/Register';
 import Login from './components/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
   return (

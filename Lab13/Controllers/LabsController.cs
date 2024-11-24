@@ -8,17 +8,20 @@ namespace Lab13.Controllers
     public class LabsController : Controller
     {
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public IActionResult Index()
         {
             return View(new LabViewModel());
         }
 
         [HttpPost]
-        [Authorize]
-        public IActionResult Index(LabViewModel model)
+        //[Authorize]
+        public IActionResult Index([FromBody] LabViewModel model)
         {
-            string selected = Request.Form["LabSelector"].ToString();
+            if (model == null)
+                return BadRequest("Invalid model data.");
+
+            string selected = model.LabSelector;
             ViewData["SelectedLab"] = selected;
 
             string inputPath = Path.GetTempFileName();
@@ -42,7 +45,7 @@ namespace Lab13.Controllers
                         break;
                     default:
                         model.OutputText = "Невідома лаба.";
-                        return View(model);
+                        return Json(model);
                 }
 
                 if (System.IO.File.Exists(outputPath))
@@ -61,7 +64,7 @@ namespace Lab13.Controllers
                 if (System.IO.File.Exists(outputPath))
                     System.IO.File.Delete(outputPath);
             }
-            return View(model);
+            return Json(model);
         }
     }
 }

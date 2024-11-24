@@ -56,6 +56,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp", buil =>
+    {
+        buil.WithOrigins("http://localhost:3000")
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 builder.WebHost.UseUrls("http://0.0.0.0:5145");
 
 builder.Logging.ClearProviders();
@@ -83,5 +93,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");
+app.UseCors("AllowReactApp");
 
 app.Run();
