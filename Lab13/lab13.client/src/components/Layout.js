@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Layout = ({ children }) => {
+    const { isAuthenticated } = useAuth0();
+
     return (
         <div>
             <header>
@@ -24,15 +27,21 @@ const Layout = ({ children }) => {
                                 <li className="nav-item">
                                     <Link className="nav-link text-dark" to="/">Home</Link>
                                 </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link text-dark" to="/profile">Profile</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link text-dark" to="/login">Login</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link text-dark" to="/register">Register</Link>
-                                </li>
+                                {isAuthenticated && (
+                                    <li className="nav-item">
+                                        <Link className="nav-link text-dark" to="/profile">Profile</Link>
+                                    </li>
+                                )}
+                                {!isAuthenticated && (
+                                    <>
+                                        <li className="nav-item">
+                                            <Link className="nav-link text-dark" to="/login">Login</Link>
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link text-dark" to="/register">Register</Link>
+                                        </li>
+                                    </>
+                                )}
                             </ul>
                         </div>
                     </div>
