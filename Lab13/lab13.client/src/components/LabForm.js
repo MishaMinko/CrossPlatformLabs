@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const LabForm = ({ onSubmit }) => {
-    const [selectedLab, setSelectedLab] = useState('Lab1');
+const LabForm = ({ onSubmit, initialLab }) => {
+    const [selectedLab, setSelectedLab] = useState(initialLab);
     const [inputText, setInputText] = useState('');
 
     const handleSubmit = (event) => {
         event.preventDefault();
         onSubmit(selectedLab, inputText);
     };
+
+    useEffect(() => {
+        setSelectedLab(initialLab);
+    }, [initialLab]);
 
     return (
         <form onSubmit={handleSubmit}>

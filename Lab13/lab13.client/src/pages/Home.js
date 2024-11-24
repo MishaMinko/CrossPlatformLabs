@@ -16,7 +16,7 @@ const Home = () => {
                             <p className="card-text">
                                 Поєднання двох вказаних імен в одне, в якому є обидва імені.
                             </p>
-                            <Link to="/lab1" className="btn btn-primary">
+                            <Link to="/labs/Lab1" className="btn btn-primary">
                                 Відкрити Lab 1
                             </Link>
                         </div>
@@ -29,7 +29,7 @@ const Home = () => {
                             <p className="card-text">
                                 Сума елементів послідовності з вказаної кількості кроків.
                             </p>
-                            <Link to="/lab2" className="btn btn-primary">
+                            <Link to="/labs/Lab2" className="btn btn-primary">
                                 Відкрити Lab 2
                             </Link>
                         </div>
@@ -42,7 +42,7 @@ const Home = () => {
                             <p className="card-text">
                                 Алгоритм, який, як у грі Zuma, за найкоротшу кількість кроків знищує усі букви.
                             </p>
-                            <Link to="/lab3" className="btn btn-primary">
+                            <Link to="/labs/Lab3" className="btn btn-primary">
                                 Відкрити Lab 3
                             </Link>
                         </div>

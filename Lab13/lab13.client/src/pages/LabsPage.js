@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LabForm from '../components/LabForm';
 import LabResult from '../components/LabResult';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 const LabsPage = () => {
+    const { labId } = useParams();
     const [labViewModel, setLabViewModel] = useState({
         InputText: '',
         OutputText: ''
@@ -28,10 +30,18 @@ const LabsPage = () => {
         }
     };
 
+    useEffect(() => {
+        setLabViewModel({
+            ...labViewModel,
+            InputText: '',
+            OutputText: ''
+        });
+    }, [labId]);
+
     return (
         <div className="container mt-2">
             <h1 className="mb-4 text-center">Варіант 62 - Фурсенко Михайло</h1>
-            <LabForm onSubmit={handleLabSubmit} />
+            <LabForm onSubmit={handleLabSubmit} initialLab={labId} />
             <LabResult outputText={labViewModel.OutputText} />
         </div>
     );
