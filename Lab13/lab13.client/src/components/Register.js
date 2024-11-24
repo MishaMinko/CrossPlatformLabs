@@ -54,71 +54,91 @@ const Register = () => {
     };
 
     return (
-        <div>
-            <h2>Register</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                        value={formData.username}
-                        onChange={handleChange}
-                    />
-                    {errors.username && <p>{errors.username}</p>}
+        <div className="container mt-5">
+            <div className="row justify-content-center">
+                <div className="col-md-8">
+                    <div className="card">
+                        <div className="card-body">
+                            <h2 className="card-title text-center mb-4">Register</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="mb-3">
+                                    <label htmlFor="username" className="form-label">Username</label>
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        id="username"
+                                        className="form-control"
+                                        value={formData.username}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.username && <div className="text-danger">{errors.username}</div>}
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="fullName" className="form-label">Full Name</label>
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        id="fullName"
+                                        className="form-control"
+                                        value={formData.fullName}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.fullName && <div className="text-danger">{errors.fullName}</div>}
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="password" className="form-label">Password</label>
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        id="password"
+                                        className="form-control"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.password && <div className="text-danger">{errors.password}</div>}
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
+                                    <input
+                                        type="password"
+                                        name="confirmPassword"
+                                        id="confirmPassword"
+                                        className="form-control"
+                                        value={formData.confirmPassword}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.confirmPassword && <div className="text-danger">{errors.confirmPassword}</div>}
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="phoneNumber" className="form-label">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        name="phoneNumber"
+                                        id="phoneNumber"
+                                        className="form-control"
+                                        value={formData.phoneNumber}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.phoneNumber && <div className="text-danger">{errors.phoneNumber}</div>}
+                                </div>
+                                <div className="mb-3">
+                                    <label htmlFor="email" className="form-label">Email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        id="email"
+                                        className="form-control"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                    />
+                                    {errors.email && <div className="text-danger">{errors.email}</div>}
+                                </div>
+                                <button type="submit" className="btn btn-primary w-100">Register</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label>Full Name</label>
-                    <input
-                        type="text"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                    />
-                    {errors.fullName && <p>{errors.fullName}</p>}
-                </div>
-                <div>
-                    <label>Password</label>
-                    <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                    />
-                    {errors.password && <p>{errors.password}</p>}
-                </div>
-                <div>
-                    <label>Confirm Password</label>
-                    <input
-                        type="password"
-                        name="confirmPassword"
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                    />
-                    {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-                </div>
-                <div>
-                    <label>Phone Number</label>
-                    <input
-                        type="text"
-                        name="phoneNumber"
-                        value={formData.phoneNumber}
-                        onChange={handleChange}
-                    />
-                    {errors.phoneNumber && <p>{errors.phoneNumber}</p>}
-                </div>
-                <div>
-                    <label>Email</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    {errors.email && <p>{errors.email}</p>}
-                </div>
-                <button type="submit">Register</button>
-            </form>
+            </div>
         </div>
     );
 };

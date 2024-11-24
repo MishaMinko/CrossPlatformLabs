@@ -29,7 +29,7 @@ const LabsPage = () => {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-2">
             <h1 className="mb-4 text-center">Варіант 62 - Фурсенко Михайло</h1>
             <LabForm onSubmit={handleLabSubmit} />
             <LabResult outputText={labViewModel.OutputText} />
