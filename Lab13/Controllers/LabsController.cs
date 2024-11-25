@@ -19,11 +19,14 @@ namespace Lab13.Controllers
         public IActionResult Index([FromBody] LabViewModel model)
         {
             if (model == null)
+            {
+                Console.WriteLine("Модель порожня.");
                 return BadRequest("Invalid model data.");
+            }
+
+            Console.WriteLine($"LabSelector: {model.LabSelector}, InputText: {model.InputText}");
 
             string selected = model.LabSelector;
-            ViewData["SelectedLab"] = selected;
-
             string inputPath = Path.GetTempFileName();
             string outputPath = Path.GetTempFileName();
 
@@ -59,9 +62,9 @@ namespace Lab13.Controllers
             }
             finally
             {
-                if (System.IO.File.Exists(inputPath))
+                if (System.IO.File.Exists(inputPath)) 
                     System.IO.File.Delete(inputPath);
-                if (System.IO.File.Exists(outputPath))
+                if (System.IO.File.Exists(outputPath)) 
                     System.IO.File.Delete(outputPath);
             }
             return Json(model);

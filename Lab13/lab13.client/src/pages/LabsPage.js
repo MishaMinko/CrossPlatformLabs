@@ -12,6 +12,9 @@ const LabsPage = () => {
     });
 
     const handleLabSubmit = async (selectedLab, inputText) => {
+        console.log('Обрано лабораторну:', selectedLab);
+        console.log('Введений текст:', inputText);
+
         try {
             const response = await axios.post('http://localhost:5145/Labs/Index', {
                 LabSelector: selectedLab,
@@ -22,13 +25,17 @@ const LabsPage = () => {
                 }
             });
 
-            console.log('Response:', response.data);
+            console.log('Відповідь від сервера:', response.data);
 
             setLabViewModel({
                 InputText: inputText,
-                OutputText: response.data.OutputText || 'Результат не знайдено.'
+                OutputText: response.data.outputText || 'Результат не знайдено.'
             });
+
+            console.log('Результат виконання:', response.data.outputText);
         } catch (error) {
+            console.log('Помилка під час запиту:', error);
+
             setLabViewModel({
                 InputText: inputText,
                 OutputText: 'Помилка: ' + error.message
@@ -36,13 +43,14 @@ const LabsPage = () => {
         }
     };
 
+
     useEffect(() => {
         setLabViewModel({
-            ...labViewModel,
             InputText: '',
             OutputText: ''
         });
     }, [labId]);
+
 
     return (
         <div className="container mt-2">

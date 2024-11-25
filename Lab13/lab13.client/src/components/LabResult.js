@@ -2,7 +2,7 @@ import React from 'react';
 
 const LabResult = ({ outputText }) => {
     return (
-        <div className="mt-4">
+        <div className="mt-2">
             <h4>Результат</h4>
             <textarea
                 id="outputText"
