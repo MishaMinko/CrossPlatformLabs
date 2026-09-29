@@ -1,40 +1,40 @@
-# Запуск проєкту
+# How to start project
 
-Для запуску необхідно в корені проєкту вводити таким чином команди:
+To run the program, enter the following commands in the project's root directory:
 - **dotnet build Build.proj -p:Solution=Lab1 -t:Build**
 - **dotnet build Build.proj -p:Solution=Lab1 -t:Run**
 - **dotnet build Build.proj -p:Solution=Lab1.Tests -t:Test**
 
-# Варіант 62
+# Number 62
 
 
 # Lab 3
 
-Можливо, деяким із вас знайома гра Zuma про пригоди жаби. 
-У цьому завдання правила схожі і досить прості: у кам'яному жолобі знаходиться ряд різнокольорових куль; гармата, що розташувалася поруч із жолобом, має деякий запас різнокольорових кульок і періодично закидає їх у жолоб. 
-Покинуті кулі вбудовуються в ряд. Якщо після пострілу в жолобі утворюється безперервна послідовність з трьох або більше куль одного кольору, що включає покинуту кулю, вони зникають, а сусідні кулі зсуваються, стуляючи ряд. 
-Якщо після зникнення куль у місці стику присутні сусідні кулі (як ліворуч, так і праворуч), що утворюють безперервну послідовність з трьох або більше куль одного кольору, то вони також зникають, і так далі. Мета гри – знищити усі кулі.
+Some of you may be familiar with the game Zuma, about the adventures of a frog.
+In this problem, the rules are similar and quite simple: there is a row of multicolored balls in a stone chute; a cannon located next to the chute has a supply of multicolored balls and periodically fires them into the chute.
+The balls that are dropped fall into the row. If, after a shot, a continuous sequence of three or more balls of the same color—including the dropped ball—forms in the chute, they disappear, and the adjacent balls shift to close the gap.
+If, after the balls disappear, there are adjacent balls (on both the left and right) at the junction that form a continuous sequence of three or more balls of the same color, they also disappear, and so on. The goal of the game is to eliminate all the balls.
 
-| Етап | Малюнок                                               | Пояснення                                                                                                                                 |
-|------|-------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| 1    | ![Example 1](./images/lab3-1.jpg "Process Diagram 1") | Вистрілюється нова куля «B», у позицію після кулі №1                                                                                      |
-| 2    | ![Example 2](./images/lab3-2.jpg "Process Diagram 2") | Після пострілу новий шар утворює із сусідніми послідовність кольору «B», в позиціях 2-5. Довжина послідовності ≥3, тому кулі 2-5 зникнуть |
-| 3    | ![Example 3](./images/lab3-3.jpg "Process Diagram 3") | Кулі, що залишилися, займуть позиції 1-3, і оскільки нова послідовність кольору «А» довжини ≥3, вона теж зникне                           |
+| Stage | Illustration                                          | Explanation                                                                                                                                               |
+|-------|-------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1     | ![Example 1](./images/lab3-1.jpg “Process Diagram 1”) | A new ball “B” is fired, landing in the position after ball No. 1                                                                                         |
+| 2     | ![Example 2](./images/lab3-2.jpg “Process Diagram 2”) | After being fired, the new ball forms a sequence of color “B” with its neighbors in positions 2–5. The sequence length is ≥3, so balls 2–5 will disappear |
+| 3     | ![Example 3](./images/lab3-3.jpg “Process Diagram 3”) | The remaining balls will occupy positions 1–3, and since the new “A” color sequence has a length of ≥3, it will also disappear                            |
 
-Пронумеруємо кулі зліва направо, починаючи з одиниці. Постріл кулі в позицію n означає, що він з'явиться правіше за кулю з номером n і опиниться в позиції n+1. Номери куль, розташованих правіше кулі, що прилетіла, збільшуються на одиницю. 
-Приземлення кулі ліворуч від ряду позначається позицією з номером 0. Після зникнення деяких куль, кулі в жолобі нумеруються заново зліва направо, починаючи з одиниці.
-Потрібно написати програму, яка визначає оптимальну стратегію стрільби. Оптимальною стратегією називається та, коли найменша кількість пострілів призводить до зникнення всіх куль.
+Let’s number the balls from left to right, starting with 1. When a ball is fired into position n, it will land to the right of the ball numbered n and end up in position n+1. The numbers of the balls located to the right of the incoming ball are incremented by one.
+A ball landing to the left of the row is denoted by position 0. After some balls have disappeared, the balls in the chute are renumbered from left to right, starting with 1.
+Write a program that determines the optimal shooting strategy. The optimal strategy is the one in which the fewest number of shots results in the elimination of all balls.
 
-## Вхідні дані
+## Input Data
 
-Вхідний файл `INPUT.TXT` містить опис низки куль, колір кожної кулі описується великою літерою англійського алфавіту (A..Z). Відомо, що довжина ряду не перевищує 14 куль, а для знищення ряду потрібно не більше 10 пострілів, якщо слідувати оптимальній стратегії.
+The input file `INPUT.TXT` contains a description of a row of balls; the color of each ball is denoted by a capital letter of the English alphabet (A–Z). It is known that the length of the row does not exceed 14 balls, and no more than 10 shots are needed to destroy the row if the optimal strategy is followed.
 
-## Вихідні дані
+## Output
 
-У вихідний файл `OUTPUT.TXT` виведіть рядок: спочатку мінімальна кількість пострілів, потім через пробіл пари буква-число: колір кулі та позицію пострілу. Постріли у відповіді повинні бути перераховані в порядку їхнього прямування у грі. 
-У разі наявності кількох оптимальних стратегій виберіть будь-яку.
+Write the following to the output file `OUTPUT.TXT`: first, the minimum number of shots; then, separated by a space, a letter-number pair indicating the ball’s color and the shot’s position. The shots in the output must be listed in the order in which they are fired in the game.
+If there are multiple optimal strategies, choose any one of them.
 
-## Приклади
+## Examples
 
 | № | INPUT.TXT  | OUTPUT.TXT                       |
 |---|------------|----------------------------------|
@@ -45,26 +45,26 @@
 
 # Lab 2
 
-Розглянемо числову послідовність, що спочатку складається з двох одиниць: 1, 1. 
-Далі на кожному наступному кроці вставлятимемо між сусідніми елементами їх суму. У прикладі елементи, що додаються, виділені:
-| Номер кроку    | Послідовність			  |
+Let’s consider a numerical sequence that initially consists of two elements: 1, 1.
+Next, at each subsequent step, we will insert the sum of two adjacent elements between them. In the example, the elements being added are highlighted:
+| Step number    | Sequence			  |
 |----------------|----------------------------|
 | 0              | 1, 1						  |
 | 1              | 1, 2, 1                    |
 | 2              | 1, 3, 2, 3, 1              |
 | 3              | 1, 4, 3, 5, 2, 5, 3, 4, 1  |
 
-Потрібно написати програму, яка підрахує суму членів послідовності, побудованої за K кроків.
+Write a program that calculates the sum of the elements in a sequence constructed in K steps.
 
-## Вхідні дані
+## Input
 
-Вхідний файл `INPUT.TXT` містить одне натуральне число K (0 ≤ K ≤ 100) – номер останнього кроку.
+The input file `INPUT.TXT` contains a single natural number K (0 ≤ K ≤ 100)—the number of the last step.
 
-## Вихідні дані
+## Output
 
-Вихідний файл `OUTPUT.TXT` повинен містити одне натуральне число – суму елементів послідовності, побудованої за кроків K.
+The output file `OUTPUT.TXT` must contain a single natural number—the sum of the elements of the sequence constructed in K steps.
 
-## Приклади
+## Examples
 
 | № | INPUT.TXT  | OUTPUT.TXT  |
 |---|------------|-------------|
@@ -74,19 +74,19 @@
 
 # Lab 1
 
-Марсіяни Мишко та Маша вирішили разом підібрати подарунок на день народження Каті. Коли вони нарешті знайшли те, що хотіли, та запакували предмет у гарну коробку, треба було вирішити, як підписати подарунок. Друзі подумали, що найкращим рішенням буде скласти загальний підпис так, щоб у ньому як підрядки містилися їхні імена.
+Mishko and Masha, two Martians, decided to pick out a birthday present for Katya together. When they finally found what they wanted and wrapped it in a nice box, they had to decide how to sign the gift. The friends thought the best solution would be to write a joint signature that included both of their names in succession.
 
-Майте на увазі, що на Марсі прийнято підписуватися повними іменами, а вони у марсіан можуть бути досить довгими.
+Keep in mind that on Mars, it’s customary to sign with full names, and Martian names can be quite long.
 
-## Вхідні дані
+## Input
 
-Вхідний файл `INPUT.TXT` містить два рядки, де записані повні імена друзів. Імена, як не дивно, складаються з літер англійського алфавіту, з яких тільки перша - велика. Довжина імен від 1 до 1000 символів.
+The input file `INPUT.TXT` contains two lines with the friends’ full names. Surprisingly, the names consist of letters from the English alphabet, with only the first letter capitalized. The names are between 1 and 1,000 characters long.
 
-## Вихідні дані
+## Output
 
-У вихідний файл `OUTPUT.TXT` виведіть найкоротший рядок, у якому зустрічаються імена Миші та Маші одночасно. Літери, з яких імена починаються в цьому рядку, потрібно зробити великими. Якщо існує кілька рішень, виведіть те, яке менше в алфавітному порядку (слід вважати, що будь-яка буква у верхньому регістрі менша, ніж будь-яка буква в нижньому регістрі).
+Write the shortest string in which both Misha’s and Masha’s names appear to the output file `OUTPUT.TXT`. The letters with which the names begin in this string must be capitalized. If there are multiple solutions, output the one that is earlier in alphabetical order (consider any uppercase letter to be earlier than any lowercase letter).
 
-## Приклади
+## Examples
 
 | № | INPUT.TXT        | OUTPUT.TXT  |
 |---|------------------|-------------|
