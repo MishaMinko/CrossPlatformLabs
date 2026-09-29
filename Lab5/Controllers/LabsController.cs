@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Lab5.Models;
-using MFursenko;
+using LabsLib;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Lab5.Controllers

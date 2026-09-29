@@ -1,4 +1,4 @@
-Лаби працюють, треба накатити бібліотеку MFursenko командою `dotnet add package MFursenko --version 1.0.2 --source "D:\+Univer\3-1\crossplatform\CrossPlatformLabs\MFursenko\NuGetRepo"`
+Лаби працюють, треба накатити мою бібліотеку командою `dotnet add package LabsLib --version 1.0.2 --source "./LabsLib/NuGetRepo"`
 При вході в акаунт постійно вилітає помилка в консолі:
 Authorization Code Received
 Remote failure: OpenIdConnectAuthenticationHandler: message.State is null or empty.
@@ -10,6 +10,6 @@ im1Admin111
 
 при виході з акаунта виходить без проблем, кукі я поставив зберігається 1 хв у сервісі Auth0
 
-у Linux треба прописати в проєкті Lab5 команду: `dotnet add package MFursenko --version 1.0.2 --source "/home/vagrant/project/MFursenko/NuGetRepo"`
+у Linux треба прописати в проєкті Lab5 команду: `dotnet add package LabsLib --version 1.0.2 --source "/home/vagrant/project/LabsLib/NuGetRepo"`
 після цього у папці Lab прописати `dotnet run`
 сайт буде доступний за посиланням: http://192.168.56.10:5115/

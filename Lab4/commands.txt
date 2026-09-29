@@ -7,7 +7,7 @@ dotnet nuget add source http://localhost:5000/v3/index.json -n Baget
 dotnet nuget add source http://localhost:5000/v3/index.json --name Localhost --configfile ~/.nuget/NuGet/NuGet.config --allow-insecure-connections
 dotnet nuget trusted-signers add --name Localhost --configfile ~/.nuget/NuGet/NuGet.config
 //2
-dotnet nuget push bin/Release/MFursenko.1.0.0.nupkg --source privateBaget
+dotnet nuget push bin/Release/LabsLib.1.0.0.nupkg --source privateBaget
 
 http://localhost:5000/v3/index.json
 
@@ -17,7 +17,7 @@ vagrant halt
 vagrant destroy -f
 
 dotnet nuget remove source Localhost
-dotnet nuget add source http://localhost:5000/v3/index.json --name Localhost --configfile C:\Users\Minko\AppData\Roaming\NuGet\NuGet.Config --allow-insecure-connections
+dotnet nuget add source http://localhost:5000/v3/index.json --name Localhost --configfile %APPDATA%\NuGet\NuGet.Config --allow-insecure-connections
 dotnet nuget locals all --clear
 
 dotnet restore

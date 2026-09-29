@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>LabsLib</id>
+    <version>1.0.2</version>
+    <authors>LabsLib</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="f0e2ef3bb597a7931a89fbe955d4339e9107fd51" />
+    <dependencies>
+      <group targetFramework="net8.0" />
+    </dependencies>
+  </metadata>
+</package>

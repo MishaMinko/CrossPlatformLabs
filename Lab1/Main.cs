@@ -95,7 +95,7 @@
 
         public void Start()
         {
-            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, @"..\..\..\"));
+            string rootDirectory = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", ".."));
             string inputPath = Path.Combine(rootDirectory, "input.txt");
             string outputPath = Path.Combine(rootDirectory, "output.txt");
             completeFunction(inputPath, outputPath);

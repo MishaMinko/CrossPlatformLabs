@@ -8,9 +8,9 @@
 	  
 	<PackAsTool>true</PackAsTool>
 	<ToolCommandName>lab4</ToolCommandName>
-	<PackageId>MFursenko</PackageId>
+	<PackageId>LabsLib</PackageId>
 	<Version>1.0.0</Version>
-	<Authors>Fursenko Misha</Authors>
+	<Authors>MishaMinko</Authors>
 	<Description>Lab4</Description>
   </PropertyGroup>
 

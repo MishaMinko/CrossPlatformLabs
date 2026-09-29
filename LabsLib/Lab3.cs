@@ -1,4 +1,4 @@
-﻿namespace MFursenko
+﻿namespace LabsLib
 {
     public class Tree
     {

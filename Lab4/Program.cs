@@ -24,7 +24,6 @@ class VersionCommand
 {
     private void OnExecute()
     {
-        Console.WriteLine("Author: Fursenko Misha IPZ-32");
         Console.WriteLine("Version: 1.0.0");
     }
 }
